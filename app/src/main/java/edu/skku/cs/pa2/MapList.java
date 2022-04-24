@@ -1,10 +1,12 @@
 package edu.skku.cs.pa2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class MapList extends BaseAdapter {
         }
         TextView name_tv = view.findViewById(R.id.name_textView);
         TextView size_tv = view.findViewById(R.id.size_textView);
+        Button start_btn = view.findViewById(R.id.start_button);
 
         String mname = name.get(i).toString();
         String msize = size.get(i).toString();
