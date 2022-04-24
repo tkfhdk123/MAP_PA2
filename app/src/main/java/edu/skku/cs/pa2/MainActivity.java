@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                         if(accept.isSuccess()){
                             Intent intent = new Intent(MainActivity.this, MapSelection.class);
                             intent.putExtra(DES, name);
-
+                            startActivity(intent);
                         }
                         else{
                             Toast.makeText(getApplicationContext(), "Wrong User Name", Toast.LENGTH_SHORT).show();
