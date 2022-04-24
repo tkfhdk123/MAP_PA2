@@ -24,11 +24,11 @@ public class Maze extends AppCompatActivity {
         setContentView(R.layout.activity_maze);
 
         Intent intent = getIntent();
-        String mname = intent.getStringExtra("maze_name");
+        String m_name = intent.getStringExtra(MapSelection.NAME);
 
         OkHttpClient client = new OkHttpClient();
-        HttpUrl.Builder urlbuilder = HttpUrl.parse("http://115.145.175.57:10099/maze/maps").newBuilder();
-        urlbuilder.addQueryParameter("name", '"' + mname + '"');
+        HttpUrl.Builder urlbuilder = HttpUrl.parse("http://115.145.175.57:10099/maze/map").newBuilder();
+        urlbuilder.addQueryParameter("name", m_name);
         String url = urlbuilder.build().toString();
 
         Request req = new Request.Builder().url(url).build();
@@ -47,12 +47,9 @@ public class Maze extends AppCompatActivity {
                     @Override
                     public void run() {
                         textView.setText(myResponse);
-
                     }
                 });
-
             }
         });
-
     }
 }

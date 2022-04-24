@@ -66,19 +66,19 @@ public class MainActivity extends AppCompatActivity {
                 Gson gson1 = new GsonBuilder().create();
                 final Data accept = gson1.fromJson(myResponse, Data.class);
 
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(accept.isSuccess()){
-                            Intent intent = new Intent(MainActivity.this, MapSelection.class);
-                            intent.putExtra(DES, name);
-                            startActivity(intent);
-                        }
-                        else{
+                if(accept.isSuccess()){
+                    Intent intent = new Intent(MainActivity.this, MapSelection.class);
+                    intent.putExtra(DES, name);
+                    startActivity(intent);
+                }
+                else{
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
                             Toast.makeText(getApplicationContext(), "Wrong User Name", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
+                    });
+                }
             }
         });
 

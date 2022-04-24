@@ -47,6 +47,15 @@ public class MapList extends BaseAdapter {
         name_tv.setText(mname);
         size_tv.setText(msize);
 
+        start_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, Maze.class);
+                intent.putExtra(MapSelection.NAME, mname);
+                mContext.startActivity(intent);
+            }
+        });
+
         return view;
     }
 }

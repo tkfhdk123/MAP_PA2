@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -26,6 +27,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MapSelection extends AppCompatActivity {
+    public static final String NAME="maze_name";
     private ListView maplistview;
     private MapList mapList;
     private ArrayList<String> mapname;
@@ -72,15 +74,6 @@ public class MapSelection extends AppCompatActivity {
                         maplistview = findViewById(R.id.maze_listview);
                         mapList = new MapList(MapSelection.this, mapname, mapsize);
                         maplistview.setAdapter(mapList);
-
-                        maplistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                Intent intent1 = new Intent(getApplicationContext(), Maze.class);
-                                intent1.putExtra("maze_name", mapname.get(position).toString());
-                                startActivity(intent1);
-                            }
-                        });
                     }
                 });
             }
