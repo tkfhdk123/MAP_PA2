@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -18,25 +19,29 @@ import java.util.ArrayList;
 
 public class GridMazeAdapter extends BaseAdapter {
     private Context mContext;
-    private ArrayList<Integer> num_array;
+    private Integer image;
     private ArrayList<Cell> cell_array;
     private ArrayList<Integer> map_size;
+    private ArrayList<Integer> state;
 
-    public GridMazeAdapter(Context mContext, ArrayList<Integer> num_array, ArrayList<Cell> cell_array, ArrayList<Integer> map_size){
+    public GridMazeAdapter(Context mContext, Integer image,
+                           ArrayList<Cell> cell_array, ArrayList<Integer> map_size,
+                           ArrayList<Integer> state){
         this.mContext = mContext;
-        this.num_array = num_array;
+        this.image = image;
         this.cell_array = cell_array;
         this.map_size = map_size;
+        this.state = state;
     }
 
     @Override
     public int getCount() {
-        return num_array.size();
+        return cell_array.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return num_array.get(i);
+        return cell_array.get(i);
     }
 
     @Override
@@ -50,15 +55,22 @@ public class GridMazeAdapter extends BaseAdapter {
             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = layoutInflater.inflate(R.layout.activity_grid_maze, viewGroup, false);
         }
+
+        ImageView other_image = view.findViewById(R.id.other_imageView);
+
+        if(i == (map_size.get(i) * map_size.get(i)) - 1){
+            other_image.setImageResource(R.drawable.goal);
+        }
+        if(i == state.get(i)) {
+            other_image.setImageResource(image);
+        }
+
+        //각각의 디바이스의 dpi를 가져오고 maze 사이즈에 맞는 미로 생성
+        ImageView imageView = view.findViewById(R.id.maze_imageView);
+        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) imageView.getLayoutParams();
         DisplayMetrics metrics = new DisplayMetrics();
         WindowManager windowManager = (WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getMetrics(metrics);
-
-        TextView textView = view.findViewById(R.id.tv);
-        textView.setText(String.valueOf(num_array.get(i)));
-
-        ImageView imageView = view.findViewById(R.id.imageView);
-        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) imageView.getLayoutParams();
 
         int margin = 3 * metrics.densityDpi / 160;
         int hori=0;
