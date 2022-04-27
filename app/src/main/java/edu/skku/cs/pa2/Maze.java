@@ -94,6 +94,7 @@ public class Maze extends AppCompatActivity {
                         Button left_btn = findViewById(R.id.left_button);
                         Button down_btn = findViewById(R.id.down_button);
                         Button right_btn = findViewById(R.id.right_button);
+                        Button hint_btn = findViewById(R.id.hint_button);
                         
                         //초기 시작 화면
                         gridView.setNumColumns(size_num);
@@ -213,6 +214,14 @@ public class Maze extends AppCompatActivity {
                                         }
                                     }
                                 }
+                            }
+                        });
+
+                        //힌트 버튼 눌렀을 경우
+                        hint_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
                             }
                         });
 
