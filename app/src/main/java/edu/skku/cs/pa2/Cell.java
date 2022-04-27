@@ -17,7 +17,7 @@ public class Cell {
         }
         div = num % 8;
 
-        if((num / 4) == 1){
+        if((div / 4) == 1){
             this.left = true;
         }
         else{
@@ -25,7 +25,7 @@ public class Cell {
         }
         div = div % 4;
 
-        if((num / 2) == 1){
+        if((div / 2) == 1){
             this.bottom = true;
         }
         else{

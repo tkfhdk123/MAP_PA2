@@ -61,14 +61,40 @@ public class GridMazeAdapter extends BaseAdapter {
         ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) imageView.getLayoutParams();
 
         int margin = 3 * metrics.densityDpi / 160;
+        int hori=0;
+        int vert=0;
 
-        layoutParams.width = (350 * metrics.densityDpi) / (160 * map_size.get(i)) - 2 * margin;
-        layoutParams.height = (350 * metrics.densityDpi) / (160 * map_size.get(i)) - 2 * margin;
+        if(cell_array.get(i).top){
+            layoutParams.topMargin = margin;
+            vert++;
+        }
+        else {
+            layoutParams.topMargin = 0;
+        }
+        if(cell_array.get(i).bottom){
+            layoutParams.bottomMargin = margin;
+            vert++;
+        }
+        else {
+            layoutParams.bottomMargin = 0;
+        }
+        if(cell_array.get(i).left){
+            layoutParams.leftMargin = margin;
+            hori++;
+        }
+        else{
+            layoutParams.leftMargin = 0;
+        }
+        if(cell_array.get(i).right){
+            layoutParams.rightMargin = margin;
+            hori++;
+        }
+        else{
+            layoutParams.rightMargin = 0;
+        }
 
-        layoutParams.topMargin = margin;
-        layoutParams.bottomMargin = margin;
-        layoutParams.leftMargin = margin;
-        layoutParams.rightMargin = margin;
+        layoutParams.width = (350 * metrics.densityDpi) / (160 * map_size.get(i)) - hori * margin;
+        layoutParams.height = (350 * metrics.densityDpi) / (160 * map_size.get(i)) - vert * margin;
 
         imageView.setLayoutParams(layoutParams);
 
