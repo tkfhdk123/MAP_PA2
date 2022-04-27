@@ -29,7 +29,7 @@ import okhttp3.Response;
 public class MapSelection extends AppCompatActivity {
     public static final String NAME="maze_name";
     private ListView maplistview;
-    private MapList mapList;
+    private MapListAdapter mapList;
     private ArrayList<String> mapname;
     private ArrayList<String> mapsize;
 
@@ -72,7 +72,7 @@ public class MapSelection extends AppCompatActivity {
                     @Override
                     public void run() {
                         maplistview = findViewById(R.id.maze_listview);
-                        mapList = new MapList(MapSelection.this, mapname, mapsize);
+                        mapList = new MapListAdapter(MapSelection.this, mapname, mapsize);
                         maplistview.setAdapter(mapList);
                     }
                 });

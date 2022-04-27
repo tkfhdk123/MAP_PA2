@@ -11,12 +11,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MapList extends BaseAdapter {
+public class MapListAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<String> name;
     private ArrayList<String> size;
 
-    public MapList(Context mContext, ArrayList<String> name, ArrayList<String> size){
+    public MapListAdapter(Context mContext, ArrayList<String> name, ArrayList<String> size){
         this.mContext=mContext;
         this.name=name;
         this.size=size;
