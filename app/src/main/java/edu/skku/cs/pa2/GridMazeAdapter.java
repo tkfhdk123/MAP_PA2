@@ -23,15 +23,19 @@ public class GridMazeAdapter extends BaseAdapter {
     private ArrayList<Cell> cell_array;
     private ArrayList<Integer> map_size;
     private ArrayList<Integer> state;
+    private Integer hint;
+    private boolean check;
 
     public GridMazeAdapter(Context mContext, Integer image,
                            ArrayList<Cell> cell_array, ArrayList<Integer> map_size,
-                           ArrayList<Integer> state){
+                           ArrayList<Integer> state, Integer hint, boolean check){
         this.mContext = mContext;
         this.image = image;
         this.cell_array = cell_array;
         this.map_size = map_size;
         this.state = state;
+        this.hint = hint;
+        this.check = check;
     }
 
     @Override
@@ -58,11 +62,27 @@ public class GridMazeAdapter extends BaseAdapter {
 
         ImageView other_image = view.findViewById(R.id.other_imageView);
 
-        if(i == (map_size.get(i) * map_size.get(i)) - 1){
-            other_image.setImageResource(R.drawable.goal);
+        if(check){
+            if (i == hint){
+                other_image.setImageResource(R.drawable.hint);
+            }
+
+            if (i == (map_size.get(i) * map_size.get(i)) - 1) {
+                other_image.setImageResource(R.drawable.goal);
+            }
+
+            if (i == state.get(i)) {
+                other_image.setImageResource(image);
+            }
         }
-        if(i == state.get(i)) {
-            other_image.setImageResource(image);
+        else {
+            if (i == (map_size.get(i) * map_size.get(i)) - 1) {
+                other_image.setImageResource(R.drawable.goal);
+            }
+
+            if (i == state.get(i)) {
+                other_image.setImageResource(image);
+            }
         }
 
         //각각의 디바이스의 dpi를 가져오고 maze 사이즈에 맞는 미로 생성

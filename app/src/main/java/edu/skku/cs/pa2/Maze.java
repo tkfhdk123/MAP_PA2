@@ -31,8 +31,11 @@ public class Maze extends AppCompatActivity {
     private ArrayList<Cell> maze_cell;
     private ArrayList<Integer> maze_size;
     private ArrayList<Integer> now_state;
+    int hint = -1;
     int state = 0;
     int turn = 0;
+    int image = R.drawable.user_up;
+    boolean check_hint = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +101,7 @@ public class Maze extends AppCompatActivity {
                         
                         //초기 시작 화면
                         gridView.setNumColumns(size_num);
-                        gridMazeAdapter = new GridMazeAdapter(Maze.this, R.drawable.user_up, maze_cell, maze_size, now_state);
+                        gridMazeAdapter = new GridMazeAdapter(Maze.this, R.drawable.user_up, maze_cell, maze_size, now_state, 0, check_hint);
                         gridView.setAdapter(gridMazeAdapter);
 
                         //위쪽 버튼 눌렀을 경우
@@ -111,12 +114,16 @@ public class Maze extends AppCompatActivity {
                                     if (maze_cell.get(state - size_num).bottom) {
                                     } else {
                                         state -= size_num;
+                                        if(state == hint){
+                                            check_hint = false;
+                                        }
                                         turn++;
                                         now_state = new ArrayList<>();
                                         for (int i = 0; i < maze_int.size(); i++) {
                                             now_state.add(state);
                                         }
-                                        gridMazeAdapter = new GridMazeAdapter(Maze.this, R.drawable.user_up, maze_cell, maze_size, now_state);
+                                        image = R.drawable.user_up;
+                                        gridMazeAdapter = new GridMazeAdapter(Maze.this, R.drawable.user_up, maze_cell, maze_size, now_state, 0, check_hint);
                                         gridView.setAdapter(gridMazeAdapter);
 
                                         TextView tv = findViewById(R.id.turn_textView);
@@ -140,12 +147,16 @@ public class Maze extends AppCompatActivity {
                                     if (maze_cell.get(state - 1).right) {
                                     } else {
                                         state -= 1;
+                                        if(state == hint){
+                                            check_hint = false;
+                                        }
                                         turn++;
                                         now_state = new ArrayList<>();
                                         for (int i = 0; i < maze_int.size(); i++) {
                                             now_state.add(state);
                                         }
-                                        gridMazeAdapter = new GridMazeAdapter(Maze.this, R.drawable.user_left, maze_cell, maze_size, now_state);
+                                        image = R.drawable.user_left;
+                                        gridMazeAdapter = new GridMazeAdapter(Maze.this, R.drawable.user_left, maze_cell, maze_size, now_state, 0, check_hint);
                                         gridView.setAdapter(gridMazeAdapter);
 
                                         TextView tv = findViewById(R.id.turn_textView);
@@ -169,12 +180,16 @@ public class Maze extends AppCompatActivity {
                                     if (maze_cell.get(state + size_num).top) {
                                     } else {
                                         state += size_num;
+                                        if(state == hint){
+                                            check_hint = false;
+                                        }
                                         turn++;
                                         now_state = new ArrayList<>();
                                         for (int i = 0; i < maze_int.size(); i++) {
                                             now_state.add(state);
                                         }
-                                        gridMazeAdapter = new GridMazeAdapter(Maze.this, R.drawable.user_down, maze_cell, maze_size, now_state);
+                                        image = R.drawable.user_down;
+                                        gridMazeAdapter = new GridMazeAdapter(Maze.this, R.drawable.user_down, maze_cell, maze_size, now_state, 0 ,check_hint);
                                         gridView.setAdapter(gridMazeAdapter);
 
                                         TextView tv = findViewById(R.id.turn_textView);
@@ -198,12 +213,16 @@ public class Maze extends AppCompatActivity {
                                     if (maze_cell.get(state + 1).left) {
                                     } else {
                                         state += 1;
+                                        if(state == hint){
+                                            check_hint = false;
+                                        }
                                         turn++;
                                         now_state = new ArrayList<>();
                                         for (int i = 0; i < maze_int.size(); i++) {
                                             now_state.add(state);
                                         }
-                                        gridMazeAdapter = new GridMazeAdapter(Maze.this, R.drawable.user_right, maze_cell, maze_size, now_state);
+                                        image = R.drawable.user_right;
+                                        gridMazeAdapter = new GridMazeAdapter(Maze.this, R.drawable.user_right, maze_cell, maze_size, now_state, 0, check_hint);
                                         gridView.setAdapter(gridMazeAdapter);
 
                                         TextView tv = findViewById(R.id.turn_textView);
@@ -221,7 +240,17 @@ public class Maze extends AppCompatActivity {
                         hint_btn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
+                                check_hint = true;
+                                MazeDfsCheck check = new MazeDfsCheck(maze_cell, state, size_num);
+                                hint = check.bfs();
 
+
+                                now_state = new ArrayList<>();
+                                for (int i = 0; i < maze_int.size(); i++) {
+                                    now_state.add(state);
+                                }
+                                gridMazeAdapter = new GridMazeAdapter(Maze.this, image, maze_cell, maze_size, now_state, hint, check_hint);
+                                gridView.setAdapter(gridMazeAdapter);
                             }
                         });
 
