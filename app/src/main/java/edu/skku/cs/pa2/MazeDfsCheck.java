@@ -39,7 +39,8 @@ public class MazeDfsCheck {
                     && !cells.get(curstate - maze_size).bottom && !visited[curstate - maze_size]){
                 visited[curstate - maze_size]=true;
                 Integer plus = curstate - maze_size;
-                ArrayList<Integer> curpath = finalpath;
+                ArrayList<Integer> curpath = new ArrayList<>();
+                curpath.addAll(finalpath);
                 curpath.add(plus);
                 queue.add(new DataHint(plus, curpath));
             }
@@ -49,7 +50,8 @@ public class MazeDfsCheck {
                     && !cells.get(curstate - 1).right && !visited[curstate - 1]){
                 visited[curstate - 1]=true;
                 Integer plus = curstate - 1;
-                ArrayList<Integer> curpath = finalpath;
+                ArrayList<Integer> curpath = new ArrayList<>();
+                curpath.addAll(finalpath);
                 curpath.add(plus);
                 queue.add(new DataHint(plus, curpath));
             }
@@ -59,7 +61,8 @@ public class MazeDfsCheck {
                     && !cells.get(curstate + maze_size).top && !visited[curstate + maze_size]){
                 visited[curstate + maze_size]=true;
                 Integer plus = curstate + maze_size;
-                ArrayList<Integer> curpath = finalpath;
+                ArrayList<Integer> curpath = new ArrayList<>();
+                curpath.addAll(finalpath);
                 curpath.add(plus);
                 queue.add(new DataHint(plus, curpath));
             }
@@ -69,7 +72,8 @@ public class MazeDfsCheck {
                     && !cells.get(curstate + 1).left && !visited[curstate + 1]){
                 visited[curstate + 1]=true;
                 Integer plus = curstate + 1;
-                ArrayList<Integer> curpath = finalpath;
+                ArrayList<Integer> curpath = new ArrayList<>();
+                curpath.addAll(finalpath);
                 curpath.add(plus);
                 queue.add(new DataHint(plus, curpath));
             }
